@@ -1,0 +1,137 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
+
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
+
+\IEEEoverridecommandlockouts{}
+% This command is only needed if
+% you want to use the \thanks command
+
+\overrideIEEEmargins{}
+% Needed to meet printer requirements.
+
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{ulem}
+\title{\LARGE \bf
+Indoor Robot Localization with WiFi Signal and Convolutional Neural Networks and Recursive Bayesian Estimation
+}
+
+
+\author{Murat Ambarkutuk$^{1}$ and Tomonari Furukawa$^{2}$% <-this % stops a space
+\thanks{$^{1}$Murat Ambarkutuk and $^{2}$Tomonari Furukawa are with Computational Multiphysics Lab, Department of Mechanical Engineering,
+        Virginia Polytechnic Institute and State University, US
+        {\tt\small $^{1}$murata@vt.edu}, {\tt\small $^{2}$tomonari@vt.edu}}%
+}
+\begin{document}
+
+
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+  This paper presents a robot localization system with WiFi signal where a Deep Learning framework utilized to fully exploit the information from signal maps of various Access Points (AP) available in an environment.
+  Similar to conventional systems relying on fingerprinting technique, the system is consisted of two stages: data acquisition and learning (offline), and localization (online).
+  In offline stage, the signal maps for various AP's are constructed via Received Signal Strength (RSS) information and learned by a Convolutional Neural Network, whereas the online stage contains the proposed localization method based on an information fusion technique.
+
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{INTRODUCTION}
+Since WiFi has become ubiquitious, it started being utilized in different applications varying from customer tracking indoors to robotics. % more varying examples would be good.
+However it is available, the information can be extracted from is prone to (suffers from) being sparse, severely effected by infrasracture of environments where WiFi based systems are deployed.
+
+The success of the systems relying on the WiFi signal, in general, suffers from the phenomenon called Multipath Effect where the AP is not in the direct line of sight and the EM waves from the AP is propagated through obstacles, i.e.~walls and glass.
+Although there is some effort to either model or estimate the Multipath Effect to componsate its effects on the systems, it is still an open problem in the field in order to display the same success characteristics where the received signal is propagated through non-line-of-sight \# \#.
+One way to componsate the multipath effect is to find out the first the time epoch the signal is acquired; however, some of these operations require significant change in hardware so that  \# \#.
+\textit{More explanation regarding the multipath effect is needed here to emphasize that machine learning algorithms can inherently handle it.}
+
+Another problem with the WiFi signal which makes it difficult to employ it as the main information source is that the signal acquired is not reliable.
+Figure~\ref{sadas} shows the acquired RSS information acquired with stationary client from the AP's both line-of-sight and non-line-of-sight positions in time.
+The figure clearly depicts that even for stationary clients, WiFi information \#\textit{gotta mention that deviation makes it not reliable}.
+To be able to extract somewhat reliable information, some hardware and software changes proposed to incorporate Channel State Information provided by OFDM forming WiFi protocol.
+As~\cite{gao2015channel} suggests, the CSI information provides significantly reliable information.
+However, to be able to acquire CSI information, a specific type of NIC should be used with a specific type of firmware.
+This makes it hard to deploy proposed system on Embedded-devices, IoT's and robotic systems.
+
+
+% \begin{itemize}
+%   \item \sout{ubiquitous wifi information}
+%   \item \sout{multipath effect}
+%   \item \sout{no other infrasracture needed, low cost}
+%   \item the acquired information is not reliable (maybe a figure can go here showing RSSI deviation in time)
+%   \item conclusion: still an open problem due to the poor accuracy
+% \end{itemize}
+%
+%
+%
+% \section{RELATED WORKS}
+% \begin{itemize}
+%   \item CSI-related special \\
+%     hardware requirement
+%   \item Propagation-modelling \\
+%     multi-path effect difficult to model
+%   \item Fingerprinting \\
+%     An emerging area learning fingerprints is deep learning~\cite{gao2015channel}
+% \end{itemize}
+
+
+
+\section{PROBLEM FORMULATION}
+
+\section{SYSTEM DESCRIPTION}
+  \subsection{Offline Stage}
+
+    \subsubsection{Data Acquisition}
+
+    \subsubsection{Training}
+
+  \subsection{Online Stage}
+
+    \subsubsection{Inference}
+
+    \subsubsection{Information Fusion}
+
+
+\section{EXPERIMENTATION}
+  \subsection{Experimental Setup}
+    \subsubsection{Hardware}
+      % Fetch
+    \subsubsection{Software}
+      % ROS and Caffee
+  \subsection{Results}
+
+\section{CONCLUSIONS}
+
+\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
+                                  % on the last page of the document manually. It shortens
+                                  % the textheight of the last page by a suitable amount.
+                                  % This command does not take effect until the next page
+                                  % so it should come on the page before the last. Make
+                                  % sure that you do not shorten the textheight too much.
+
+
+\section*{ACKNOWLEDGMENT}
+Turkish Government and stuff
+
+\bibliographystyle{unsrt}
+\bibliography{bibliography}
+
+\end{document}
