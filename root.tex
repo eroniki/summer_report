@@ -17,13 +17,36 @@
 % on the last page of the document
 
 % The following packages can be found on http:\\www.ctan.org
-%\usepackage{graphics} % for pdf, bitmapped graphics files
-%\usepackage{epsfig} % for postscript graphics files
+\usepackage{graphics} % for pdf, bitmapped graphics files
+\usepackage{epsfig} % for postscript graphics files
 %\usepackage{mathptmx} % assumes new font selection scheme installed
 %\usepackage{times} % assumes new font selection scheme installed
 %\usepackage{amsmath} % assumes amsmath package installed
 %\usepackage{amssymb}  % assumes amsmath package installed
 \usepackage{ulem}
+\usepackage{cite}
+
+\renewcommand{\citedash}{--}
+
+\newcommand{\lorem}{
+.
+  % Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  % Nam vitae faucibus risus.
+  % Curabitur congue neque ipsum, ac egestas quam porttitor sit amet.
+  % Fusce id tempus diam.
+  % Donec nibh velit, bibendum eget magna sit amet, tincidunt gravida neque.
+  % Praesent dolor felis, sodales quis lorem volutpat, varius varius felis.
+  % Maecenas quis ex lobortis, suscipit diam eu, bibendum eros.
+  % Integer iaculis ante quis erat facilisis, ac egestas orci condimentum.
+  % Sed id metus nibh.
+  % Maecenas eget pellentesque enim.
+  % Nunc finibus augue quis risus laoreet malesuada.
+  % Curabitur suscipit elementum libero, quis feugiat felis suscipit et.
+  % Sed vehicula pellentesque sem sed accumsan.
+  % Integer congue arcu quis arcu sodales, tempus posuere tortor posuere.
+  % Integer libero velit, tristique sit amet dui vel, sollicitudin tincidunt tellus.
+}
+
 \title{\LARGE \bf
 Indoor Robot Localization with WiFi Signal and Convolutional Neural Networks and Recursive Bayesian Estimation
 }
@@ -47,30 +70,50 @@ Indoor Robot Localization with WiFi Signal and Convolutional Neural Networks and
 \begin{abstract}
 
   This paper presents a robot localization system with WiFi signal where a Deep Learning framework utilized to fully exploit the information from signal maps of various Access Points (AP) available in an environment.
-  Similar to conventional systems relying on fingerprinting technique, the system is consisted of two stages: data acquisition and learning (offline), and localization (online).
+  Similar to conventional systems relying on the fingerprinting technique, the system is consisted of two stages: data acquisition and learning (offline), and localization (online).
   In offline stage, the signal maps for various AP's are constructed via Received Signal Strength (RSS) information and learned by a Convolutional Neural Network, whereas the online stage contains the proposed localization method based on an information fusion technique.
-
+  \textit{Add some result once get it}
 \end{abstract}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{INTRODUCTION}
-Since WiFi has become ubiquitious, it started being utilized in different applications varying from customer tracking indoors to robotics. % more varying examples would be good.
-However it is available, the information can be extracted from is prone to (suffers from) being sparse, severely effected by infrasracture of environments where WiFi based systems are deployed.
 
-The success of the systems relying on the WiFi signal, in general, suffers from the phenomenon called Multipath Effect where the AP is not in the direct line of sight and the EM waves from the AP where the received signal is propagated through non-line-of-sight, i.e.~walls and glass.
-Although there is some effort to either model or estimate the Multipath Effect to componsate its effects on the systems, it is still an open problem in the field in order to achieve the same level of success.
-%One way to componsate the multipath effect is to find out the first the time epoch the signal is acquired; however, some of these operations require significant change in hardware so that  \# \#.
-\textit{More explanation regarding the multipath effect is needed here to emphasize that machine learning algorithms can inherently handle it.}
+  Since WiFi has become ubiquitious, it started being utilized in different applications varying from customer tracking indoors to robot localization. % more varying examples would be good.
+  However it is available, the information can be extracted from is prone to (suffers from) being sparse and severely effected by infrasracture of environments where WiFi based systems are deployed.
+  Amongst all the applications that WiFi signal can be used, localization is a problem where it is required to have higher level of success in localization accuracy and shorter localization time.
+  \textit{The main contributions of this paper is that the proposed technique can handle sparse, noisy RSS measurements acquired from the off-the-shelf AP's under LoS and NLoS situations, while achieving comparable localization accuracy to thes state-of-the-art methods.}
 
-Another problem with the WiFi signal which makes it difficult to employ it as the main information source is that the signal acquired is not reliable.
-Figure~\ref{sadas} shows the acquired RSS information acquired with stationary client from the AP's both line-of-sight and non-line-of-sight positions in time.
-The figure clearly depicts that even for stationary clients, WiFi information \#\textit{gotta mention that deviation makes it not reliable}.
-To be able to extract somewhat reliable information, some hardware and software changes proposed to incorporate Channel State Information provided by OFDM forming WiFi protocol.
-As~\cite{gao2015channel} suggests, the CSI information provides significantly reliable information.
-However, to be able to acquire CSI information, a specific type of NIC should be used with a specific type of firmware.
-This makes it hard to deploy proposed system on Embedded-devices, IoT's and robotic systems.
+  The success of the systems relying on the WiFi signal, in general, suffers from the phenomenon called Multipath Effect where the AP is not in the direct line of sight and the EM waves from the AP where the received signal is propagated through non-line-of-sight, i.e.~concrete and glass walls.
+  Although there is some effort to either model or estimate the Multipath Effect to componsate its effects on the systems~\cite{cai2015identification}, it is still an open problem in the field in order to achieve the same level of success.
+  %One way to componsate the multipath effect is to find out the first the time epoch the signal is acquired; however, some of these operations require significant change in hardware so that  \# \#.
+  \textit{The proposed system can inherently handle multipath effect, since machine not only can reduce complexity of overall design of the system but also can generalize from the data.}
+  % \textit{More explanation regarding the multipath effect is needed here to emphasize that machine learning algorithms can inherently handle it.}
 
+  Another problem with the WiFi signal which makes it difficult to employ it as the main information source is that the signal acquired is not reliable.
+  Figure~\ref{fig-sample} shows the acquired RSS information acquired with stationary client from the AP's both line-of-sight and non-line-of-sight positions in time.
+  The figure clearly depicts that even for stationary clients, WiFi information \#\textit{gotta mention that deviation makes it not reliable}.
+  To be able to extract relatively reliable information, some hardware and software changes proposed to incorporate Channel State Information (CSI) provided by Orthogonal Frequency-Division Multiplexing (OFDM) forming WiFi protocol.
+  As~\cite{gao2015channel} suggests/proves, the CSI information provides significantly reliable information.
+  However, to be able to acquire CSI information, a specific type of NIC should be used with a specific type of firmware.
+  This makes it hard to deploy proposed system on Embedded-devices, IoT's and robotic systems.\textit{, while the proposed system can be deployed to almost-any arbitrary system thanks to the simplicity of the design.}
+
+  % \textit{Nail the idea Machine Learning stuff can be deployed practically everywhere}
+  \begin{figure}[thpb]
+     \centering
+    %  \framebox{\parbox{3in}{We suggest that you use a text box to insert a graphic (which is ideally a 300 dpi TIFF or EPS file, with all fonts embedded) because, in an document, this method is somewhat more stable than directly inserting a picture.
+    %  }}
+     \includegraphics[scale=0.4]{figures/sample_figure.png}
+     \caption{Inductance of oscillation winding on amorphous
+      magnetic core versus DC bias magnetic field}
+      \label{fig-sample}
+  \end{figure}
+  The paper is organized as follows.
+  The following section reviews the literature regarding robot localization with WiFi signal.
+  In Sec.~\ref{sec-PF}, we formalize the problem.
+  Section~\ref{sec-SD} thoroughly explains the proposed system.
+  The experimentation and the results are  in Sec.~\ref{sec-EX}.
+  We outline our observation and conclusions in the final section.
 
 % \begin{itemize}
 %   \item \sout{ubiquitous wifi information}
@@ -82,7 +125,47 @@ This makes it hard to deploy proposed system on Embedded-devices, IoT's and robo
 %
 %
 %
-\section{RELATED WORKS}
+\section{\label{sec-RW}RELATED WORK}
+  \subsection{Indoor Localization Based on Fingerprinting}
+    Surveys:~\cite{he2016wi, hossain2015survey, liu2007survey}.
+    UnLoc~\cite{wang2012no}: zero supervising, no training; heavily depends on landmark extraction and dead reckoning. (mobile device)
+
+    Walkie-Markie~\cite{shen2013walkie}: spatial-pattern
+
+    % EZ~\cite{chintalapudi2010indoor}: Microsoft, model-based, GA, Receiver gain differences, need at least $n$ number of APs.
+
+    Particle filter~\cite{biswas2010wifi}: PF, dead reckoning
+
+    LiFS~\cite{yang2012locating}: no radio map required heavily depends on multiresolution mapping.
+
+    Zee~\cite{rai2012zee}: off-the-shelf hw, crowdsourcing
+
+    ArrayTrack~\cite{xiong2013arraytrack}: One of the best
+
+    SpotFi~\cite{kotaru2015spotfi}: One of the best
+
+    %
+    % FP~\cite{he2016wi}: FP Survey
+    %
+    % Calibration-free~\cite{hossain2015survey}: Calibration-free survey
+    %
+    % General wireless~\cite{liu2007survey}: High number of citations
+
+  \subsection{Indoor Localization with Machine Learning}
+    kNN:~\cite{liu2007survey}
+
+    Neural networks:~\cite{dayekh2010cooperative}
+
+    SVM:~\cite{wu2007location}
+
+    Deep-Fi~\cite{wang2016csi}: Deep learning
+    % \begin{itemize}
+    %   \item{RSS Based}
+    %   \item{CSI Based}
+    %   \item{TDOA Based}
+    %   \item{RTT Based}
+    % \end{itemize}
+
 % \begin{itemize}
 %   \item CSI-related special \\
 %     hardware requirement
@@ -94,9 +177,9 @@ This makes it hard to deploy proposed system on Embedded-devices, IoT's and robo
 
 
 
-\section{PROBLEM FORMULATION}
-
-\section{SYSTEM DESCRIPTION}
+\section{\label{sec-PF}PROBLEM FORMULATION}
+  \lorem{}
+\section{\label{sec-SD}SYSTEM DESCRIPTION}
   \subsection{Offline Stage}
 
     \subsubsection{Data Acquisition}
@@ -108,17 +191,20 @@ This makes it hard to deploy proposed system on Embedded-devices, IoT's and robo
     \subsubsection{Inference}
 
     \subsubsection{Information Fusion}
+    \lorem{}
 
-
-\section{EXPERIMENTATION}
+\section{\label{sec-EX}EXPERIMENTATION}
   \subsection{Experimental Setup}
     \subsubsection{Hardware}
       % Fetch
     \subsubsection{Software}
       % ROS and Caffee
   \subsection{Results}
+  \lorem{} \\
+  \lorem{}
 
-\section{CONCLUSIONS}
+\section{\label{sec-CO}CONCLUSIONS}
+  \lorem{}
 
 \addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
                                   % on the last page of the document manually. It shortens
@@ -131,7 +217,7 @@ This makes it hard to deploy proposed system on Embedded-devices, IoT's and robo
 \section*{ACKNOWLEDGMENT}
 Turkish Government and stuff
 
-\bibliographystyle{unsrt}
+\bibliographystyle{IEEEtran}
 \bibliography{bibliography}
 
 \end{document}
