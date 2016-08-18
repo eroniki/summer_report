@@ -136,23 +136,21 @@ Indoor Robot Localization with WiFi Signal and Convolutional Neural Networks and
     % One of the recent advances is that to incorporate the hard-constraints induced by the environment infrasracture.
     UnLoc~\cite{wang2012no} is an examplary instance falling into the former category.
     The system aims for incorporating hard-constraints of the environment, namely, elevators, stairs, entrances, and the change in the fingerprint patterns; for instance, a significant drop of signal level of a specific AP\@.
-    
+
     %% NO FP, mission abort!
     % EZ~\cite{chintalapudi2010indoor}: Microsoft, model-based, GA, Receiver gain differences, need at least $n$ number of APs.
 
     Particle filter~\cite{biswas2010wifi}: PF, dead reckoning
-    \lorem{}
-    % LiFS~\cite{yang2012locating}: no radio map required heavily depends on multiresolution mapping.
-    While the previous work presented the belief of the robot pose with a set of particles, LiFS~\cite{yang2012locating} approximated the environment by a grid-based method.
+
+    Zee~\cite{rai2012zee}: off-the-shelf hw, crowdsourcing
+
+    While Bayesian framework was used to present the belief of the robot pose and construct signal map, LiFS~\cite{yang2012locating} approximated the environment by a grid-based method.
     The grids are then transformed to \textit{stress-free floor plan} where the grids were clustered based on walking-distance among each other rather than physical distance; due to the fact that in indoor settings not every neighboring grids are accessible from one to another within one step.
     The fingerprints are then collected during a walk in the localization environment, as the proposed data acquisition algorithm labels fingerprints with the number of steps taken.
     The signal map were then constructed with the observed fingerprints with a Multidimensional scaling technique~\cite{borg2005modern}.
     % The fingerprints are then clustered with the same multiscaling algorithm, after a tedious preprosessing step.
     After acquiring fingerprint space and stress-free floor plan, the correspondence between two information was then calculated to map one to another; thus, spatial information was tied to fingerprints of the AP's.
     This work achieved comparable localization results but depending on
-
-    Zee~\cite{rai2012zee}: off-the-shelf hw, crowdsourcing
-    \lorem{}
 
     ArrayTrack~\cite{xiong2013arraytrack}: One of the best
     \lorem{}
@@ -231,9 +229,9 @@ Indoor Robot Localization with WiFi Signal and Convolutional Neural Networks and
 \section{\label{sec-EX}EXPERIMENTATION}
   \subsection{Experimental Setup}
     \subsubsection{Hardware}
-      % Fetch
+      Fetch~\cite{ackerman2015fetch}
     \subsubsection{Software}
-      % ROS and Caffee
+      ROS~\cite{quigley2009ros}, Caffe~\cite{jia2014caffe}
   \subsection{Results}
   \lorem{}
   \lorem{}
